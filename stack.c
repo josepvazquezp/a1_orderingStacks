@@ -69,6 +69,41 @@ void* peek(Stack* s)
   return s->head->data;
 }
 
+int compare(void *a, void *b)
+{
+  int e = *(int*)a;
+  int e2 = *(int*)b;
+
+	if(e < e2)
+		return -1;
+	else if(e > e2)
+		return 1;
+	else if(e == e2)
+		return 0; 
+
+}
+
 void sortStack(Stack *s, int(*compare)(void *a, void *b))
-{   
+{
+  Stack *s2 = newStack();
+  void *temp;
+
+  while(peek(s) != NULL)
+  {
+	  temp = pop(s);
+
+	  while(peek(s2) != NULL && compare(temp, peek(s2)) < 0)
+	  {
+		push(s, pop(s2));
+	  }
+
+	  push(s2, temp);
+
+  }
+
+  while(peek(s2) != NULL)
+  {
+	  push(s, pop(s2));
+  }
+
 }
